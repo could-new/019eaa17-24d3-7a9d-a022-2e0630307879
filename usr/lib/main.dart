@@ -32,7 +32,7 @@ class NicheFinderApp extends StatelessWidget {
           );
         }
         if (settings.name == '/niche_detail') {
-          final niche = settings.arguments as NicheData;
+          final niche = settings.arguments as Niche;
           return MaterialPageRoute(
             builder: (context) => NicheDetailScreen(niche: niche),
           );

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'models.dart';
 
 class NicheDetailScreen extends StatelessWidget {
-  final NicheData niche;
+  final Niche niche;
 
   const NicheDetailScreen({super.key, required this.niche});
 
@@ -10,7 +10,7 @@ class NicheDetailScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(niche.name),
+        title: Text(niche.title),
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16.0),
@@ -18,19 +18,19 @@ class NicheDetailScreen extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              'Аналитика по нише: ${niche.name}',
+              'Аналитика по нише: ${niche.title}',
               style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 8),
             Chip(label: Text(niche.category)),
             const SizedBox(height: 24),
-            _buildStatCard('Общая выручка', '${niche.revenue} ₽', Icons.monetization_on, Colors.green),
+            _buildStatCard('Общая выручка', '${niche.monthlyRevenue} ₽', Icons.monetization_on, Colors.green),
             const SizedBox(height: 16),
             _buildStatCard('Средний чек', '${niche.averagePrice} ₽', Icons.receipt, Colors.blue),
             const SizedBox(height: 16),
-            _buildStatCard('Количество конкурентов', '${niche.competitorsCount}', Icons.storefront, Colors.orange),
+            _buildStatCard('Количество продавцов', '${niche.sellersCount}', Icons.storefront, Colors.orange),
             const SizedBox(height: 16),
-            _buildStatCard('Тренд (рост)', '${niche.trendPercentage}%', Icons.trending_up, Colors.purple),
+            _buildStatCard('Уровень конкуренции', '${(niche.competitionLevel * 100).toStringAsFixed(0)}%', Icons.trending_up, Colors.purple),
             const SizedBox(height: 24),
             const Text(
               'Рекомендации',
@@ -38,9 +38,9 @@ class NicheDetailScreen extends StatelessWidget {
             ),
             const SizedBox(height: 8),
             Text(
-              niche.competitorsCount < 1000 
-                ? 'Низкая конкуренция, хороший потенциал для входа.'
-                : 'Высокая конкуренция. Потребуется больший бюджет на рекламу.',
+              niche.competitionLevel < 0.6 
+                ? 'Низкая или умеренная конкуренция, хороший потенциал для входа.'
+                : 'Высокая конкуренция. Потребуется больший бюджет на рекламу и продвижение.',
               style: const TextStyle(fontSize: 16),
             ),
           ],

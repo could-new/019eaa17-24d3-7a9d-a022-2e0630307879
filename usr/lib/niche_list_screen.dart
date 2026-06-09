@@ -11,7 +11,7 @@ class NicheListScreen extends StatefulWidget {
 }
 
 class _NicheListScreenState extends State<NicheListScreen> {
-  late List<NicheData> niches;
+  late List<Niche> niches;
   String searchQuery = '';
   String selectedCategory = 'Все';
 
@@ -23,9 +23,9 @@ class _NicheListScreenState extends State<NicheListScreen> {
         : mockOzonNiches;
   }
 
-  List<NicheData> get filteredNiches {
+  List<Niche> get filteredNiches {
     return niches.where((niche) {
-      final matchesQuery = niche.name.toLowerCase().contains(searchQuery.toLowerCase());
+      final matchesQuery = niche.title.toLowerCase().contains(searchQuery.toLowerCase());
       final matchesCategory = selectedCategory == 'Все' || niche.category == selectedCategory;
       return matchesQuery && matchesCategory;
     }).toList();
@@ -87,8 +87,8 @@ class _NicheListScreenState extends State<NicheListScreen> {
                 return Card(
                   margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                   child: ListTile(
-                    title: Text(niche.name, style: const TextStyle(fontWeight: FontWeight.bold)),
-                    subtitle: Text('Выручка: ${niche.revenue} ₽\nКонкурентов: ${niche.competitorsCount}'),
+                    title: Text(niche.title, style: const TextStyle(fontWeight: FontWeight.bold)),
+                    subtitle: Text('Выручка: ${niche.monthlyRevenue} ₽\nКонкурентов: ${niche.sellersCount}'),
                     trailing: const Icon(Icons.arrow_forward_ios),
                     isThreeLine: true,
                     onTap: () {
